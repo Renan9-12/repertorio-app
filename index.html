@@ -5,36 +5,35 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Flashcards ENEM</title>
   <style>
-    :root{--bg:#0f1724;--card:#281b0c;--muted:#f3dbc3;--accent:#804000;--accent-2:#9e6730;--glass:rgba(255,255,255,0.03)}
+    :root{--card:#281b0c;--muted:#f3dbc3;--accent:#804000;--accent-2:#9e6730;--glass:rgba(255,255,255,0.03)}
     *{box-sizing:border-box}
     body{margin:0;font-family:Inter, 'Segoe UI', Roboto, system-ui, Arial;background:linear-gradient(90deg,#342210 50%,#34200f 110%);color:#ffffff;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
     .app{width:100%;max-width:980px}
-    header{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+    header{display:flex;align-items:center}
     header h1{font-size:28px;margin-bottom: 4px;}
-    header p{margin:0;color:var(--muted);font-size:13px;margin-bottom: 7px}
-    .controls{display:flex;gap:8px;align-items:center;margin-bottom: 7px}
-    select,input[type=file],button{background:var(--card);border:1px solid rgba(255,255,255,0.04);padding:8px 10px;border-radius:8px;color:inherit;font-size:13px}
+    .sub-title{margin:0;color:var(--muted);font-size:13px;;margin-bottom:18px}
+    .controls{grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));align-items:center;margin-bottom: 7px}
+    select,input[type=file],button{background:var(--card);border:1px solid rgba(255,255,255,0.04);padding:8px 10px;border-radius:8px;color:inherit;font-size:13px;margin-bottom: 7px}
     .layout{display:grid;grid-template-columns:1fr 320px;gap:16px}
-    .card-area{background:var(--glass);padding:18px;border-radius:12px;min-height:360px;display:flex;flex-direction:column;align-items:center;justify-content:center}
+    .card-area{background:var(--card);padding:18px;border-radius:12px;min-height:360px;display:flex;flex-direction:column;align-items:center;justify-content:center}
     .card{width:100%;max-width:640px;height:220px;border-radius:12px;perspective:1200px}
-    .inner{width:100%;height:100%;transition:transform .6s;transform-style:preserve-3d;position:relative}
+    .inner{width:100%;height:100%;transition:transform .4s;transform-style:preserve-3d;position:relative}
     .inner.flipped{transform:rotateY(-180deg)}
     .face{position:absolute;inset:0;border-radius:12px;padding:20px;backface-visibility:hidden;display:flex;flex-direction:column;justify-content:center}
-    .front{background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.03)}
+    .front{background: #1a1107 ;border:1px solid rgba(255,255,255,0.03)}
     .back{background:linear-gradient(180deg,#34200f 0%,#573110 100%);border:1px solid rgba(255,255,255,0.03);transform:rotateY(180deg)}
     .question{font-size:18px;font-weight:600}
     .answer{font-size:15px;color:var(--muted);margin-top:8px;line-height:1.45}
     .meta{display:flex;gap:10px;margin-top:12px;color:var(--muted);font-size:13px}
-    .navigator{display:flex;gap:8px;margin-top:18px;    }
-    .navigator button{padding:10px 14px;border-radius:10px;background:linear-gradient(90deg,var(--accent),var(--accent-2));border:none;color:#efefef;font-weight:700}
+    .navigator{grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); margin-top: 12px; gap: 15px}
+    .navigator button{padding:10px 14px;border-radius:10px;background:linear-gradient(90deg,var(--accent),var(--accent-2));border:none;color:#efefef;font-weight:700;margin-bottom: 7px}
     .side{background:var(--card);padding:12px;border-radius:12px;min-height:360px}
     .list{max-height:260px;overflow:auto;margin-top:8px;padding-right:6px}
-    .card-row{display:flex;align-items:center;justify-content:space-between;padding:8px;border-radius:8px;margin-bottom:6px;background:rgba(255,255,255,0.015)}
+    .card-row{display:flex;align-items:center;justify-content:space-between;padding:8px;border-radius:8px;margin-bottom:6px;background:rgba(255,255,255,0.015);border-bottom: solid 1px #472400}
     .small{font-size:13px;color:var(--muted)}
     .tag{background:rgba(255,255,255,0.03);padding:6px 8px;border-radius:8px;font-size:12px}
     .actions{display:flex;gap:8px;margin-top:12px}
-    .ghost{background:transparent;border:1px solid rgba(255,255,255,0.04);padding:8px 10px;border-radius:8px;color:var(--muted)}
-    .download_buttons{background: transparent;}
+    .ghost{background:transparent;border:1px solid rgba(255, 255, 255, 0.11);padding:8px 10px;border-radius:8px;color:var(--muted)}
     footer{margin-top:12px;color:var(--muted);font-size:13px;text-align:right}
     .progress{height:8px;background:rgba(255,255,255,0.03);border-radius:6px;overflow:hidden;margin-top:10px}
     .progress > i{display:block;height:100%;background:linear-gradient(90deg,var(--accent),var(--accent-2));width:0%}
@@ -66,6 +65,11 @@
     color: rgb(251, 100, 6);
     text-shadow: 0 0 10px rgb(251, 100, 6);
     }
+
+    .logo {
+    margin-top: 17px;
+    margin-right: 5px;
+    }
     /* responsive */
     @media (max-width:900px){.layout{grid-template-columns:1fr}.side{order:2}.card-area{order:1}}
   </style>
@@ -73,24 +77,23 @@
 <body>
   <div class="app" role="application">
     <header>
+      <img class="logo" src="img/logo.png" alt="logo" height="50px" width="50px">
       <div>
         <h1>FLASHCARDS DE REPERTÓRIOS — ENEM</h1>
-        <p>Banco de repertórios de prática para ENEM. Pratique flip, filtre por área, marque como dominado e baixe.</p>
       </div>
     </header>
+      <p class="sub-title">Banco de repertórios de prática para ENEM. Pratique flip, filtre por área, marque como dominado e baixe.</p>
       <div class="controls">
         <select id="categoryFilter" aria-label="Filtrar por categoria"></select>
         <button id="shuffleBtn" title="Embaralhar">Embaralhar</button>
         <button id="resetProgress" title="Resetar progresso">Resetar</button>
-        <input hidden id="importFile" type="file" accept=".csv" title="Importar CSV" />
-        <button id="exportCsv" class="download_buttons" title="Arquivo .csv dos cards para usar em outros locais">Baixar CSV</button>
-        <button id="downloadJson" class="download_buttons" title="Arquivo .json dos cards para usar em outros locais">Baixar Json</button>
-      </div>
-
+        <button id="exportCsv" class="ghost" title="Arquivo .csv dos cards para usar em outros locais">Baixar CSV</button>
+    </div>
+    
     <div class="layout">
-      <main class="card-area">
-        <div class="card" aria-live="polite">
-          <div id="inner" class="inner">
+        <main class="card-area">
+            <div class="card" aria-live="polite">
+                <div id="inner" class="inner">
             <div class="face front">
               <div class="question" id="frontText">Carregando...</div>
               <div class="meta"><div id="categoryPill" class="tag">—</div><div class="small" id="indexDisplay">0 / 0</div></div>
@@ -99,42 +102,43 @@
               <div class="answer" id="backText">...</div>
               <div class="meta"><div class="small" id="whenUse">Quando usar: —</div></div>
             </div>
-          </div>
         </div>
-
+    </div>
+    
         <div class="navigator">
-          <button id="prevBtn">◀ ANTERIOR</button>
-          <button id="flipBtn" title="Ver mais detalhes">VIRAR</button>
-          <button id="nextBtn">PRÓXIMO ▶</button>
-          <button id="knowBtn" title="Marcar como dominado">✓ DOMINO</button>
-          <button id="againBtn" title="Marcar para revisar">↺ REVISAR</button>
+            <button id="prevBtn">◀ ANTERIOR</button>
+            <button id="flipBtn" title="Ver mais detalhes">VIRAR</button>
+            <button id="nextBtn">▶ PRÓXIMO</button>
+            <button id="knowBtn" title="Marcar como dominado">✓ DOMINO</button>
+            <button id="againBtn" title="Marcar para revisar">↺ REVISAR</button>
         </div>
-
+        
         <div class="progress" aria-hidden="false"><i id="bar"></i></div>
         <footer id="statusText">0 dominados • 0 para revisar</footer>
-      </main>
-
-      <aside class="side" aria-label="Painel lateral">
+    </main>
+    
+    <aside class="side" aria-label="Painel lateral">
         <div style="display:flex;justify-content:space-between;align-items:center">
           <strong>Lista de Cards</strong>
           <button id="showAll" class="ghost">Mostrar todos</button>
         </div>
         <div class="list" id="list"></div>
-
+        
         <div style="margin-top:12px">
-          <div class="small">Marcadores</div>
-          <div style="display:flex;gap:8px;margin-top:8px">
-            <button id="filterKnown" class="ghost">Mostr. dominados</button>
-            <button id="filterReview" class="ghost">Mostr. revisar</button>
-          </div>
+            <div class="small">Marcadores</div>
+            <div style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));margin-top:8px">
+                <button id="filterKnown" class="ghost">Mostr. dominados</button>
+                <button id="filterReview" class="ghost">Mostr. revisar</button>
+            </div>
         </div>
-
-        <div class="actions">
-          <button hidden id="addSample" class="ghost">Adicionar amostra</button>
-          
-        </div>
-      </aside>
-    </div>
+        <input hidden id="addSample"/>
+        <input hidden id="importFile"/>
+        <input hidden id="downloadJson"/>
+        
+        
+        
+    </aside>
+</div>
 <div class="sobre">
     <div class="sobre-container">
         <span>2025 Flashcards ENEM — Pablo Renan</span>
