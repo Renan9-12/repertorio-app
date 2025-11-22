@@ -3,7 +3,10 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#342210" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <title>Flashcards ENEM</title>
+  <link rel="shortcut icon" href="/img/logo.png">
   <style>
     :root{--card:#281b0c;--muted:#f3dbc3;--accent:#804000;--accent-2:#9e6730;--glass:rgba(255,255,255,0.03)}
     *{box-sizing:border-box}
@@ -17,7 +20,7 @@
     .layout{display:grid;grid-template-columns:1fr 320px;gap:16px}
     .card-area{background:var(--card);padding:18px;border-radius:12px;min-height:360px;display:flex;flex-direction:column;align-items:center;justify-content:center}
     .card{width:100%;max-width:640px;height:220px;border-radius:12px;perspective:1200px}
-    .inner{width:100%;height:100%;transition:transform .4s;transform-style:preserve-3d;position:relative}
+    .inner{width:100%;height:100%;transition:transform 0.55s cubic-bezier(0.16, 0.72, 0.61, 1.27);transform-style:preserve-3d;position:relative}
     .inner.flipped{transform:rotateY(-180deg)}
     .face{position:absolute;inset:0;border-radius:12px;padding:20px;backface-visibility:hidden;display:flex;flex-direction:column;justify-content:center}
     .front{background: #1a1107 ;border:1px solid rgba(255,255,255,0.03)}
@@ -38,6 +41,14 @@
     .progress{height:8px;background:rgba(255,255,255,0.03);border-radius:6px;overflow:hidden;margin-top:10px}
     .progress > i{display:block;height:100%;background:linear-gradient(90deg,var(--accent),var(--accent-2));width:0%}
     
+
+    /* Para o elemento principal da página */
+    .list::-webkit-scrollbar,
+    body::-webkit-scrollbar {
+    width: 0.1px;
+    }
+
+
     select:hover,
     input:hover,
     .card-row:hover,

@@ -1,15 +1,616 @@
-    // --- Dados iniciais (resumidos) ---
+    // --- Dados ---
     const SAMPLE_FLASHCARDS = [
-      {id:1,cat:'Educação',front:'O que defende Paulo Freire?',back:'Educação como prática da liberdade; promove consciência crítica.',when:'Evasão escolar, alfabetização, desigualdade educacional.'},
-      {id:2,cat:'Educação',front:'Art. 6º da Constituição — quando usar?',back:'Indica educação como direito social; responsabiliza o Estado.',when:'Problemas de acesso e financiamento da educação pública.'},
-      {id:3,cat:'Desigualdade',front:'O que defende Amartya Sen?',back:'Teoria das capacidades: liberdade real depende de capacidades básicas.',when:'Pobreza, desigualdade social e mobilidade.'},
-      {id:4,cat:'Tecnologia',front:'O que diz Shoshana Zuboff?',back:'Capitalismo de vigilância: empresas coletam dados para influenciar comportamentos.',when:'Privacidade, redes sociais, manipulação algorítmica.'},
-      {id:5,cat:'Meio Ambiente',front:'O que é a Agenda 2030?',back:'Conjunto de 17 ODS para desenvolvimento sustentável.',when:'Políticas públicas ambientais e metas de sustentabilidade.'},
-      {id:6,cat:'Saúde',front:'Como a OMS define saúde?',back:'Bem-estar físico, mental e social.',when:'Saúde mental, políticas públicas, acesso ao SUS.'},
-      {id:7,cat:'Violência',front:'O que diz Foucault sobre punição?',back:'Punição disciplina corpos e reproduz exclusão social.',when:'Sistema prisional, superlotação e políticas penais.'},
-      {id:8,cat:'Cultura',front:'O que diz Frantz Fanon?',back:'Analisa colonialismo e efeitos na identidade negra; racismo estrutural.',when:'Racismo, identidade e discriminação.'},
-      {id:9,cat:'Infância',front:'Princípio central do ECA?',back:'Proteção integral de crianças e adolescentes.',when:'Trabalho infantil, violência e abandono.'},
-      {id:10,cat:'Trabalho',front:'O que diz Manuel Castells sobre trabalho?',back:'Economia em rede altera relações de trabalho e gera desigualdades.',when:'Automação, exclusão digital, precarização.'}
+        { id:1, cat:'Educação', front:'Qual a visão central de Paulo Freire sobre educação?', 
+        back:'Segundo Paulo Freire, a educação deve libertar o indivíduo ao desenvolver consciência crítica sobre a própria realidade.', 
+        when:'Use quando o problema envolve falta de pensamento crítico.' },
+
+        { id:2, cat:'Educação', front:'O que o Artigo 6º da Constituição estabelece sobre educação?', 
+        back:'Segundo a Constituição Federal (Art. 6º), a educação é um direito social indispensável garantido pelo Estado.', 
+        when:'Use quando há violação de direitos básicos.' },
+
+        { id:3, cat:'Desigualdade', front:'Qual é a ideia central de Amartya Sen sobre desigualdade?', 
+        back:'Segundo Amartya Sen, desigualdade ocorre quando pessoas não possuem capacidades reais para exercer liberdade plena.', 
+        when:'Use quando o problema impede liberdade prática das pessoas.' },
+
+        { id:4, cat:'Tecnologia', front:'O que Shoshana Zuboff afirma sobre uso de dados?', 
+        back:'Segundo Shoshana Zuboff, empresas digitalizadas exploram dados para prever e moldar comportamentos humanos.', 
+        when:'Use quando há manipulação digital ou coleta abusiva de dados.' },
+
+        { id:5, cat:'Meio Ambiente', front:'O que é a Agenda 2030, segundo a ONU?', 
+        back:'Segundo a ONU, a Agenda 2030 reúne metas globais para desenvolvimento sustentável em todas as áreas sociais e ambientais.', 
+        when:'Use quando o problema envolve metas ambientais descumpridas.' },
+
+        { id:6, cat:'Saúde', front:'Como a OMS define saúde?', 
+        back:'Segundo a OMS, saúde é o completo bem-estar físico, mental e social, não apenas ausência de doenças.', 
+        when:'Use quando há negligência com saúde mental ou social.' },
+
+        { id:7, cat:'Violência', front:'O que Michel Foucault afirma sobre punição?', 
+        back:'Segundo Foucault, o sistema punitivo molda corpos e comportamentos, produzindo controle e exclusão social.', 
+        when:'Use quando o sistema penal reforça desigualdades.' },
+
+        { id:8, cat:'Cultura', front:'O que Frantz Fanon explica sobre racismo?', 
+        back:'Segundo Fanon, o racismo estrutural nasce da lógica colonial que desumaniza grupos racializados.', 
+        when:'Use quando há discriminação racial persistente.' },
+
+        { id:9, cat:'Infância', front:'Qual o princípio central do ECA sobre crianças?', 
+        back:'Segundo o ECA, crianças e adolescentes têm direito à proteção integral em todas as esferas da vida.', 
+        when:'Use quando há abandono ou violação de direitos infantis.' },
+
+        { id:10, cat:'Trabalho', front:'O que Manuel Castells diz sobre trabalho na era digital?', 
+        back:'Segundo Castells, a economia em rede aprofunda desigualdades ao favorecer quem domina tecnologias.', 
+        when:'Use quando há exclusão no mercado de trabalho.' },
+
+        { id:11, cat:'Educação', front:'Qual a defesa central de Anísio Teixeira?', 
+        back:'Segundo Anísio Teixeira, escola pública e democrática é condição essencial para igualdade social.', 
+        when:'Use quando falta acesso educacional equitativo.' },
+
+        { id:12, cat:'Educação', front:'Qual a visão de Hannah Arendt sobre educação?', 
+        back:'Segundo Hannah Arendt, a educação introduz os jovens no mundo comum, preparando-os para a vida pública.', 
+        when:'Use quando há crise de autoridade docente.' },
+
+        { id:13, cat:'Educação', front:'Como Bourdieu vê a escola?', 
+        back:'Segundo Bourdieu, a escola reproduz desigualdades ao favorecer quem já possui capital cultural.', 
+        when:'Use quando há desigualdade entre alunos pelo contexto social.' },
+
+        { id:14, cat:'Educação', front:'O que Castells afirma sobre exclusão digital?', 
+        back:'Segundo Castells, a falta de acesso digital amplia desigualdades educacionais e sociais.', 
+        when:'Use quando estudantes não têm tecnologia para estudar.' },
+
+        { id:15, cat:'Educação', front:'O que a UNESCO defende sobre educação inclusiva?', 
+        back:'Segundo a UNESCO, educação inclusiva garante participação de todos, independentemente de diferenças.', 
+        when:'Use quando minorias são excluídas da educação.' },
+
+        { id:16, cat:'Educação', front:'O que o ECA assegura sobre educação?', 
+        back:'Segundo o ECA, a educação é obrigatória e deve garantir desenvolvimento pleno da criança.', 
+        when:'Use quando há evasão ou negligência escolar.' },
+
+        { id:17, cat:'Educação', front:'O que Paulo Freire diz sobre alfabetização?', 
+        back:'Segundo Paulo Freire, alfabetizar é politizar: formar cidadãos críticos e conscientes.', 
+        when:'Use quando o problema envolve analfabetismo persistente.' },
+
+        { id:18, cat:'Educação', front:'O que Amartya Sen relaciona à educação?', 
+        back:'Segundo Amartya Sen, educação amplia capacidades, possibilitando liberdade real.', 
+        when:'Use quando falta educação impede autonomia.' },
+
+        { id:19, cat:'Educação', front:'O que propõe o ODS 4?', 
+        back:'Segundo a ONU, o ODS 4 busca garantir educação inclusiva, equitativa e de qualidade.', 
+        when:'Use quando ensino público é insuficiente.' },
+
+        { id:20, cat:'Educação', front:'Qual a crítica de Arendt sobre autoridade docente?', 
+        back:'Segundo Arendt, a perda da autoridade do professor compromete o papel da escola na formação do jovem.', 
+        when:'Use quando há desvalorização docente.' },
+
+        { id:21, cat:'Desigualdade', front:'O que David Harvey diz sobre cidades e desigualdade?', 
+        back:'Segundo Harvey, cidades são produzidas para beneficiar elites, ampliando desigualdade urbana.', 
+        when:'Use quando cidades empurram pobres para periferias.' },
+
+        { id:22, cat:'Desigualdade', front:'Qual a importância do Mapa da Violência?', 
+        back:'Segundo o Mapa da Violência, jovens negros são os mais vitimados pela violência estrutural.', 
+        when:'Use quando há vitimização racial em estatísticas.' },
+
+        { id:23, cat:'Desigualdade', front:'O que a ONU afirma sobre pobreza?', 
+        back:'Segundo a ONU, combater pobreza é garantir direitos humanos e dignidade básica.', 
+        when:'Use quando políticas sociais falham.' },
+
+        { id:24, cat:'Desigualdade', front:'Qual é a tese de Fanon sobre desigualdade racial?', 
+        back:'Segundo Fanon, desigualdade racial deriva da herança colonial que ainda estrutura a sociedade.', 
+        when:'Use quando racismo impede acesso a oportunidades.' },
+
+        { id:25, cat:'Desigualdade', front:'O que o IBGE revela sobre desigualdade regional?', 
+        back:'Segundo o IBGE, regiões pobres sofrem maiores disparidades de renda e acesso a serviços.', 
+        when:'Use quando diferenças regionais agravam o problema.' },
+
+        { id:26, cat:'Desigualdade', front:'O que o Ipea aponta sobre mobilidade social?', 
+        back:'Segundo o Ipea, a mobilidade social no Brasil é baixa, perpetuando desigualdades históricas.', 
+        when:'Use quando pessoas não conseguem ascender socialmente.' },
+
+        { id:27, cat:'Desigualdade', front:'Qual é o objetivo do ODS 1?', 
+        back:'Segundo a ONU, o ODS 1 busca erradicar a pobreza extrema global.', 
+        when:'Use quando políticas públicas são insuficientes.' },
+
+        { id:28, cat:'Desigualdade', front:'O que Sen afirma sobre pobreza?', 
+        back:'Segundo Sen, pobreza é falta de liberdade para fazer escolhas reais.', 
+        when:'Use quando contexto limita autonomia pessoal.' },
+
+        { id:29, cat:'Desigualdade', front:'Qual é o papel da ONU-Habitat?', 
+        back:'Segundo a ONU-Habitat, moradia adequada é direito fundamental e base de dignidade.', 
+        when:'Use quando há déficit habitacional.' },
+
+        { id:30, cat:'Desigualdade', front:'O que Bourdieu explica sobre habitus?', 
+        back:'Segundo Bourdieu, habitus molda práticas e oportunidades conforme a origem social.', 
+        when:'Use quando desigualdade decorre da origem familiar.' },
+
+        { id:31, cat:'Tecnologia', front:'Qual a crítica de Byung-Chul Han à sociedade atual?', 
+        back:'Segundo Han, a sociedade do desempenho gera esgotamento emocional e adoecimento.', 
+        when:'Use quando problema envolve burnout ou autocobrança.' },
+
+        { id:32, cat:'Tecnologia', front:'Qual o risco dos algoritmos?', 
+        back:'Segundo estudos sobre algoritmos, eles criam bolhas informacionais que manipulam percepções.', 
+        when:'Use quando redes sociais distorcem informações.' },
+
+        { id:33, cat:'Tecnologia', front:'O que é capitalismo de vigilância segundo Zuboff?', 
+        back:'Segundo Zuboff, capitalismo de vigilância transforma dados pessoais em lucro e controle.', 
+        when:'Use quando privacidade é violada.' },
+
+        { id:34, cat:'Tecnologia', front:'Qual a mensagem de "O Dilema das Redes"?', 
+        back:'Segundo o documentário, plataformas usam design para prender atenção e estimular vício.', 
+        when:'Use quando problema envolve dependência digital.' },
+
+        { id:35, cat:'Tecnologia', front:'O que Castells explica sobre sociedade em rede?', 
+        back:'Segundo Castells, a lógica em rede redefine relações sociais, econômicas e culturais.', 
+        when:'Use quando tecnologia impacta interações sociais.' },
+
+        { id:36, cat:'Tecnologia', front:'O que caracteriza a ciberviolência?', 
+        back:'Segundo a ONU, ciberviolência inclui ataques virtuais que causam danos psicológicos reais.', 
+        when:'Use quando há cyberbullying.' },
+
+        { id:37, cat:'Tecnologia', front:'O que a OMS alerta sobre telas?', 
+        back:'Segundo a OMS, uso excessivo de telas compromete atenção, sono e cognição.', 
+        when:'Use quando jovens usam telas de forma abusiva.' },
+
+        { id:38, cat:'Tecnologia', front:'O que Zuboff destaca sobre crianças online?', 
+        back:'Segundo Zuboff, empresas exploram dados de crianças devido à sua maior vulnerabilidade.', 
+        when:'Use quando plataformas não protegem menores.' },
+
+        { id:39, cat:'Tecnologia', front:'Qual o efeito da automação no trabalho?', 
+        back:'Segundo estudos de Oxford, automação substitui tarefas repetitivas e ameaça empregos.', 
+        when:'Use quando IA gera desemprego.' },
+
+        { id:40, cat:'Tecnologia', front:'Por que deepfakes são uma ameaça?', 
+        back:'Segundo especialistas, deepfakes corroem confiança pública ao manipular imagens realistas.', 
+        when:'Use quando o problema envolve desinformação audiovisual.' },
+
+        { id:41, cat:'Violência', front:'O que Zaffaroni afirma sobre sistema penal?', 
+        back:'Segundo Zaffaroni, o sistema penal pune seletivamente pobres e negros.', 
+        when:'Use quando penalização atinge grupos específicos.' },
+
+        { id:42, cat:'Violência', front:'Como Foucault vê vigilância?', 
+        back:'Segundo Foucault, vigilância disciplina e controla corpos na sociedade moderna.', 
+        when:'Use quando há abuso de poder institucional.' },
+
+        { id:43, cat:'Violência', front:'O que a ONU denuncia sobre violência contra mulheres?', 
+        back:'Segundo a ONU, violência contra mulheres é violação grave de direitos humanos.', 
+        when:'Use quando há agressões de gênero.' },
+
+        { id:44, cat:'Violência', front:'Qual o papel da Lei Maria da Penha?', 
+        back:'Segundo especialistas, a lei protege mulheres e oferece mecanismos de denúncia e acolhimento.', 
+        when:'Use quando vítimas não recebem proteção adequada.' },
+
+        { id:45, cat:'Violência', front:'O que o Mapa da Violência mostra sobre jovens negros?', 
+        back:'Segundo o Mapa da Violência, jovens negros são as principais vítimas de homicídio.', 
+        when:'Use quando estatísticas revelam racismo na violência.' },
+
+        { id:46, cat:'Violência', front:'O que o UNICEF afirma sobre violência infantil?', 
+        back:'Segundo o UNICEF, crianças são extremamente vulneráveis a abusos e negligência.', 
+        when:'Use quando falta proteção a menores.' },
+
+        { id:47, cat:'Violência', front:'Qual o problema central do sistema prisional?', 
+        back:'Segundo relatórios oficiais, prisões superlotadas violam direitos e impedem reinserção.', 
+        when:'Use quando ressocialização não ocorre.' },
+
+        { id:48, cat:'Violência', front:'O que é racismo penal?', 
+        back:'Segundo juristas, racismo penal criminaliza desproporcionalmente jovens negros.', 
+        when:'Use quando punição recai mais sobre minorias.' },
+
+        { id:49, cat:'Violência', front:'Qual a causa estrutural da violência urbana?', 
+        back:'Segundo estudos sociais, desigualdade e ausência estatal impulsionam violência urbana.', 
+        when:'Use quando áreas pobres sofrem violência intensa.' },
+
+        { id:50, cat:'Violência', front:'O que o ECA prevê sobre adolescentes em conflito com a lei?', 
+        back:'Segundo o ECA, medidas socioeducativas devem priorizar educação e reinserção, não punição.', 
+        when:'Use quando adolescentes recebem abordagem punitiva.' },
+
+        { id:51, cat:'Saúde', front:'Como o SUS entende saúde?', 
+        back:'Segundo o SUS, saúde é um direito universal baseado em prevenção, tratamento e promoção de bem-estar.', 
+        when:'Use quando há falta de acesso a serviços básicos.' },
+
+        { id:52, cat:'Saúde', front:'O que a OMS afirma sobre saúde mental?', 
+        back:'Segundo a OMS, saúde mental é essencial para bem-estar geral e deve ser tratada como prioridade pública.', 
+        when:'Use quando há negligência com transtornos mentais.' },
+
+        { id:53, cat:'Saúde', front:'O que o Ministério da Saúde aponta sobre vacinação?', 
+        back:'Segundo o Ministério da Saúde, vacinação é estratégia fundamental para prevenir surtos e proteger coletividades.', 
+        when:'Use quando surgem movimentos antivacina.' },
+
+        { id:54, cat:'Saúde', front:'Qual a relação entre desigualdade e saúde, segundo a ONU?', 
+        back:'Segundo a ONU, desigualdade social agrava doenças ao limitar acesso a serviços essenciais.', 
+        when:'Use quando pobreza intensifica crises de saúde.' },
+
+        { id:55, cat:'Saúde', front:'O que o relatório Lancet afirma sobre clima e saúde?', 
+        back:'Segundo a Lancet, mudanças climáticas aumentam riscos de doenças e ameaçam sistemas de saúde.', 
+        when:'Use quando clima afeta populações vulneráveis.' },
+
+        { id:56, cat:'Saúde', front:'Qual o alerta da Fiocruz sobre saúde infantil?', 
+        back:'Segundo a Fiocruz, pobreza e falta de saneamento elevam riscos de doenças em crianças.', 
+        when:'Use quando debate envolve mortalidade infantil.' },
+
+        { id:57, cat:'Saúde', front:'O que é saúde ampliada?', 
+        back:'Segundo a Política Nacional de Saúde, saúde ampliada considera fatores sociais, ambientais e psicológicos.', 
+        when:'Use quando o problema vai além do hospital.' },
+
+        { id:58, cat:'Saúde', front:'Qual a visão da OMS sobre drogas?', 
+        back:'Segundo a OMS, uso de drogas deve ser tratado como questão de saúde pública, não apenas criminal.', 
+        when:'Use quando jovens são criminalizados ao invés de tratados.' },
+
+        { id:59, cat:'Saúde', front:'O que o IBGE aponta sobre saneamento?', 
+        back:'Segundo o IBGE, falta de saneamento básico provoca doenças e viola dignidade humana.', 
+        when:'Use quando comunidades sofrem com esgoto a céu aberto.' },
+
+        { id:60, cat:'Saúde', front:'O que é a política de saúde mental do Brasil?', 
+        back:'Segundo o Ministério da Saúde, o cuidado deve priorizar liberdade e reinserção social.', 
+        when:'Use quando jovens não recebem acolhimento psicológico.' },
+
+        { id:61, cat:'Cultura', front:'O que a UNESCO afirma sobre diversidade cultural?', 
+        back:'Segundo a UNESCO, diversidade cultural é patrimônio da humanidade e deve ser protegida e promovida.', 
+        when:'Use quando grupos culturais são marginalizados.' },
+
+        { id:62, cat:'Cultura', front:'Qual a crítica de Stuart Hall sobre identidade?', 
+        back:'Segundo Hall, identidades são construções sociais influenciadas por cultura e poder.', 
+        when:'Use quando identidades são apagadas ou distorcidas.' },
+
+        { id:63, cat:'Cultura', front:'O que Darcy Ribeiro afirma sobre cultura brasileira?', 
+        back:'Segundo Darcy Ribeiro, a cultura brasileira é resultado da fusão de múltiplas matrizes étnicas.', 
+        when:'Use quando tema envolve diversidade identitária.' },
+
+        { id:64, cat:'Cultura', front:'O que o Ministério da Cultura defende?', 
+        back:'Segundo o MinC, cultura é direito e elemento essencial da cidadania.', 
+        when:'Use quando há corte de verbas culturais.' },
+
+        { id:65, cat:'Cultura', front:'Qual o papel das políticas de patrimônio?', 
+        back:'Segundo o IPHAN, patrimônio cultural garante memória social e identidade coletiva.', 
+        when:'Use quando bens culturais são destruídos.' },
+
+        { id:66, cat:'Cultura', front:'Como a ONU vê cultura e desenvolvimento?', 
+        back:'Segundo a ONU, cultura é força estratégica para desenvolvimento humano.', 
+        when:'Use quando cultura fortalece comunidades.' },
+
+        { id:67, cat:'Cultura', front:'O que Bauman afirma sobre cultura líquida?', 
+        back:'Segundo Bauman, consumo rápido da cultura enfraquece vínculos sociais e identidades.', 
+        when:'Use quando redes sociais banalizam cultura.' },
+
+        { id:68, cat:'Cultura', front:'O que Fanon diz sobre alienação cultural?', 
+        back:'Segundo Fanon, colonialismo destrói culturas locais e impõe padrões externos.', 
+        when:'Use quando culturas tradicionais são invisibilizadas.' },
+
+        { id:69, cat:'Cultura', front:'Qual a importância da Lei Rouanet?', 
+        back:'Segundo o MinC, a Lei Rouanet incentiva produção cultural e democratiza acesso à arte.', 
+        when:'Use quando falta financiamento cultural.' },
+
+        { id:70, cat:'Cultura', front:'O que o IBGE aponta sobre consumo cultural?', 
+        back:'Segundo o IBGE, desigualdade econômica limita acesso à cultura no Brasil.', 
+        when:'Use quando pobreza impede acesso a bens culturais.' },
+
+        { id:71, cat:'Meio Ambiente', front:'O que Rachel Carson denuncia em "Primavera Silenciosa"?', 
+        back:'Segundo Carson, pesticidas e poluentes causam desequilíbrio ambiental e matam biodiversidade.', 
+        when:'Use quando tema envolve impacto de agrotóxicos.' },
+
+        { id:72, cat:'Meio Ambiente', front:'O que o IPCC alerta sobre clima?', 
+        back:'Segundo o IPCC, aquecimento global intensifica desastres e ameaça a vida humana.', 
+        when:'Use quando há eventos climáticos extremos.' },
+
+        { id:73, cat:'Meio Ambiente', front:'O que o ODS 13 defende?', 
+        back:'Segundo a ONU, o ODS 13 exige ação urgente contra mudanças climáticas.', 
+        when:'Use quando governos ignoram crise climática.' },
+
+        { id:74, cat:'Meio Ambiente', front:'O que o IBAMA afirma sobre desmatamento?', 
+        back:'Segundo o IBAMA, desmatamento causa perda de biodiversidade e desequilíbrio ecossistêmico.', 
+        when:'Use quando o tema envolve Amazônia.' },
+
+        { id:75, cat:'Educação', front:'???', 
+        back:'"Há cinco degraus para se alcançar a sabedoria: calar, ouvir, lembrar, sair, estudar."', 
+        when:'Use para vida intera!!' },
+
+        { id:76, cat:'Meio Ambiente', front:'O que é justiça climática?', 
+        back:'Segundo a ONU, justiça climática busca proteger populações mais afetadas por mudanças climáticas.', 
+        when:'Use quando comunidades pobres sofrem desastres.' },
+
+        { id:77, cat:'Meio Ambiente', front:'O que a Agência Nacional de Águas defende?', 
+        back:'Segundo a ANA, gestão eficiente da água é essencial para garantir abastecimento e saúde.', 
+        when:'Use quando há crise hídrica.' },
+
+        { id:78, cat:'Meio Ambiente', front:'O que a Embrapa aponta sobre agricultura sustentável?', 
+        back:'Segundo a Embrapa, tecnologias sustentáveis reduzem desperdícios e impactos ambientais.', 
+        when:'Use quando agro degrada ecossistemas.' },
+
+        { id:79, cat:'Meio Ambiente', front:'O que o Greenpeace denuncia?', 
+        back:'Segundo o Greenpeace, atividades humanas degradam oceanos, florestas e clima global.', 
+        when:'Use quando grandes corporações prejudicam o ambiente.' },
+
+        { id:80, cat:'Meio Ambiente', front:'O que o Pnuma afirma sobre poluição?', 
+        back:'Segundo o Programa da ONU para o Meio Ambiente, poluição do ar e água é uma das maiores ameaças à saúde humana.', 
+        when:'Use quando tema envolve contaminação.' },
+
+        { id:81, cat:'Infância', front:'Qual o papel do UNICEF?', 
+        back:'Segundo o UNICEF, crianças devem receber proteção integral e oportunidades para desenvolvimento pleno.', 
+        when:'Use quando crianças enfrentam abandono.' },
+
+        { id:82, cat:'Infância', front:'O que o ECA garante sobre lazer?', 
+        back:'Segundo o ECA, lazer é direito fundamental para desenvolvimento saudável.', 
+        when:'Use quando crianças vivem em ambientes violentos.' },
+
+        { id:83, cat:'Infância', front:'Qual a visão do IBGE sobre trabalho infantil?', 
+        back:'Segundo o IBGE, trabalho infantil prejudica escolarização e saúde.', 
+        when:'Use quando crianças trabalham informalmente.' },
+
+        { id:84, cat:'Infância', front:'O que o Ministério dos Direitos Humanos afirma sobre bullying?', 
+        back:'Segundo o MDH, bullying é violência que afeta identidade e saúde emocional.', 
+        when:'Use quando tema envolve bullying escolar.' },
+
+        { id:85, cat:'Infância', front:'O que a OMS diz sobre telas e crianças?', 
+        back:'Segundo a OMS, excesso de telas prejudica sono, atenção e aprendizado.', 
+        when:'Use quando crianças têm vício digital.' },
+
+        { id:86, cat:'Infância', front:'Qual o impacto da pobreza na infância segundo a ONU?', 
+        back:'Segundo a ONU, pobreza impede nutrição, educação e bem-estar infantil.', 
+        when:'Use quando crianças não têm necessidades básicas.' },
+
+        { id:87, cat:'Infância', front:'O que o ECA afirma sobre convivência familiar?', 
+        back:'Segundo o ECA, convivência familiar é essencial para formação emocional.', 
+        when:'Use quando há abandono ou institucionalização.' },
+
+        { id:88, cat:'Infância', front:'O que o Conselho Tutelar faz?', 
+        back:'Segundo o ECA, o Conselho Tutelar garante proteção imediata a crianças em risco.', 
+        when:'Use quando autoridades omitiram proteção.' },
+
+        { id:89, cat:'Infância', front:'Qual a função das escolas segundo o ECA?', 
+        back:'Segundo o ECA, escolas devem proteger estudantes e promover desenvolvimento integral.', 
+        when:'Use quando escolas negligenciam segurança.' },
+
+        { id:90, cat:'Infância', front:'O que o UNICEF afirma sobre nutrição infantil?', 
+        back:'Segundo o UNICEF, nutrição adequada define saúde e aprendizado ao longo da vida.', 
+        when:'Use quando há insegurança alimentar.' },
+
+        { id:91, cat:'Trabalho', front:'O que a OIT diz sobre trabalho digno?', 
+        back:'Segundo a OIT, trabalho digno inclui remuneração justa, segurança e igualdade.', 
+        when:'Use quando há exploração laboral.' },
+
+        { id:92, cat:'Trabalho', front:'O que Castells afirma sobre precarização?', 
+        back:'Segundo Castells, economia digital aumenta empregos instáveis e mal remunerados.', 
+        when:'Use quando trabalhadores enfrentam uberização.' },
+
+        { id:93, cat:'Trabalho', front:'O que o Dieese aponta sobre desemprego juvenil?', 
+        back:'Segundo o Dieese, jovens sofrem mais desemprego devido à falta de experiência e oportunidades.', 
+        when:'Use quando jovens não conseguem emprego.' },
+
+        { id:94, cat:'Trabalho', front:'O que a OIT afirma sobre trabalho infantil?', 
+        back:'Segundo a OIT, trabalho infantil viola direitos e compromete futuro educacional.', 
+        when:'Use quando crianças trabalham para sustento da família.' },
+
+        { id:95, cat:'Trabalho', front:'O que o IBGE diz sobre informalidade?', 
+        back:'Segundo o IBGE, informalidade amplia vulnerabilidade e falta de proteção trabalhista.', 
+        when:'Use quando pessoas vivem sem direitos trabalhistas.' },
+
+        { id:96, cat:'Trabalho', front:'O que é a CLT?', 
+        back:'Segundo a legislação trabalhista, a CLT organiza direitos, deveres e garantias do trabalhador.', 
+        when:'Use quando direitos trabalhistas são violados.' },
+
+        { id:97, cat:'Trabalho', front:'O que a automação causa no emprego?', 
+        back:'Segundo estudos econômicos, automação substitui tarefas humanas e exige requalificação profissional.', 
+        when:'Use quando máquinas substituem trabalhadores.' },
+
+        { id:98, cat:'Trabalho', front:'O que a OIT diz sobre assédio no trabalho?', 
+        back:'Segundo a OIT, assédio laboral viola dignidade e afeta saúde física e mental.', 
+        when:'Use quando há violência psicológica no trabalho.' },
+
+        { id:99, cat:'Trabalho', front:'O que é desigualdade salarial?', 
+        back:'Segundo a ONU, desigualdade salarial reflete discriminação de gênero, raça ou classe.', 
+        when:'Use quando mulheres ganham menos pelo mesmo trabalho.' },
+
+        { id:100, cat:'Trabalho', front:'Qual a relação entre educação e emprego, segundo Sen?', 
+        back:'Segundo Amartya Sen, educação amplia capacidades e melhora acesso a trabalho digno.', 
+        when:'Use quando falta de estudo limita oportunidades.' },
+
+        { id:101, cat:'Cidades', front:'O que Harvey afirma sobre urbanização?', 
+        back:'Segundo David Harvey, a cidade reproduz desigualdades ao favorecer interesses das elites.', 
+        when:'Use quando bairros periféricos sofrem com falta de infraestrutura.' },
+
+        { id:102, cat:'Cidades', front:'O que o ODS 11 defende sobre cidades?', 
+        back:'Segundo a ONU, cidades devem ser inclusivas, seguras e sustentáveis.', 
+        when:'Use quando transporte e mobilidade falham.' },
+
+        { id:103, cat:'Cidades', front:'O que a Fundação João Pinheiro aponta sobre moradia?', 
+        back:'Segundo a FJP, o déficit habitacional força milhões a viverem em moradias precárias.', 
+        when:'Use quando famílias vivem em condições indignas.' },
+
+        { id:104, cat:'Cidades', front:'O que Milton Santos critica na urbanização?', 
+        back:'Segundo Santos, planejamento desigual produz cidades excludentes e segregadas.', 
+        when:'Use quando enchentes e deslizamentos atingem periferias.' },
+
+        { id:105, cat:'Cidades', front:'O que o Mapa da Violência revela sobre cidades?', 
+        back:'Segundo o Mapa da Violência, regiões vulneráveis concentram maior número de homicídios.', 
+        when:'Use quando violência urbana atinge jovens periféricos.' },
+
+        { id:106, cat:'Cidades', front:'O que são ilhas de calor urbanas?', 
+        back:'Segundo estudos climáticos, áreas pobres sem arborização atingem temperaturas muito maiores.', 
+        when:'Use quando calor extremo afeta moradores periféricos.' },
+
+        { id:107, cat:'Cidades', front:'Qual o desafio dos resíduos urbanos?', 
+        back:'Segundo a PNRS, a má gestão de resíduos agrava enchentes, proliferação de doenças e degrada o ambiente.', 
+        when:'Use quando lixo acumulado causa prejuízos.' },
+
+        { id:108, cat:'Cidades', front:'O que a UNESCO diz sobre acesso cultural?', 
+        back:'Segundo a UNESCO, acesso à cultura é direito essencial e deve ser garantido para todos.', 
+        when:'Use quando periferias têm pouco acesso a atividades culturais.' },
+
+        { id:109, cat:'Cidades', front:'Por que enchentes são problema político?', 
+        back:'Segundo urbanistas, enchentes decorrem de falta de drenagem e planejamento urbano inadequado.', 
+        when:'Use quando cidades alagam facilmente.' },
+
+        { id:110, cat:'Cidades', front:'O que é urbanismo social?', 
+        back:'Segundo Jane Jacobs, boas cidades dependem da vida comunitária, participação social e espaços humanos.', 
+        when:'Use quando revitalização ignora moradores locais.' },
+
+        { id:111, cat:'Educação', front:'Por que meritocracia é questionada?', 
+        back:'Segundo Bourdieu, desigualdades materiais e culturais moldam desempenho escolar, tornando a meritocracia ilusória.', 
+        when:'Use quando desempenho escolar é tratado como culpa individual.' },
+
+        { id:112, cat:'Tecnologia', front:'O que Bauman critica sobre cancelamento?', 
+        back:'Segundo Bauman, sociedades líquidas tornam relações frágeis e favorecem punições rápidas e superficiais.', 
+        when:'Use quando cancelamentos ocorrem sem diálogo.' },
+
+        { id:113, cat:'Saúde', front:'O que Sen afirma sobre saúde?', 
+        back:'Segundo Amartya Sen, saúde amplia liberdades e capacidades humanas essenciais.', 
+        when:'Use quando desigualdade em saúde limita oportunidades.' },
+
+        { id:114, cat:'Cultura', front:'O que Darcy Ribeiro diz sobre identidade nacional?', 
+        back:'Segundo Darcy Ribeiro, o Brasil é uma civilização mestiça e plural que deve valorizar sua diversidade.', 
+        when:'Use quando identidades culturais são ignoradas.' },
+
+        { id:115, cat:'Infância', front:'Por que educação infantil é essencial?', 
+        back:'Segundo o UNICEF, investimento em primeira infância gera maior retorno social e cognitivo.', 
+        when:'Use quando políticas falham com crianças pequenas.' },
+
+        { id:116, cat:'Desigualdade', front:'O que Silvio Almeida diz sobre racismo institucional?', 
+        back:'Segundo Almeida, instituições produzem desigualdade racial por práticas e estruturas, não apenas por indivíduos.', 
+        when:'Use quando negros recebem tratamento desigual.' },
+
+        { id:117, cat:'Violência', front:'O que é cultura da violência?', 
+        back:'Segundo pesquisas sociológicas, violência naturalizada legitima agressões e feminicídio.', 
+        when:'Use quando violência é tratada como “comum”.' },
+
+        { id:118, cat:'Meio Ambiente', front:'Por que consumo sustentável é importante?', 
+        back:'Segundo a ONU, padrões sustentáveis reduzem impacto ambiental e evitam exaustão de recursos.', 
+        when:'Use quando há desperdício e consumo excessivo.' },
+
+        { id:119, cat:'Trabalho', front:'O que Paul Singer diz sobre economia solidária?', 
+        back:'Segundo Singer, economia solidária democratiza renda e fortalece autonomia comunitária.', 
+        when:'Use quando desigualdade econômica aumenta.' },
+
+        { id:120, cat:'Trabalho', front:'Qual a crítica à gig economy?', 
+        back:'Segundo Ricardo Antunes, a uberização precariza o trabalho ao transferir riscos ao trabalhador.', 
+        when:'Use quando trabalhadores sofrem com instabilidade.' },
+
+        { id:121, cat:'Tecnologia', front:'Para que serve a LGPD?', 
+        back:'Segundo a LGPD, dados pessoais devem ser protegidos contra abusos e vigilância indevida.', 
+        when:'Use quando empresas coletam dados sem consentimento.' },
+
+        { id:122, cat:'Tecnologia', front:'O que diz Byung-Chul Han sobre autocobrança?', 
+        back:'Segundo Han, a sociedade do desempenho transforma indivíduos em exploradores de si mesmos.', 
+        when:'Use quando há burnout e exaustão psicológica.' },
+
+        { id:123, cat:'Educação', front:'Por que mediação docente é central?', 
+        back:'Segundo teorias pedagógicas, o professor orienta processos cognitivos e constrói pontes para o aprendizado.', 
+        when:'Use quando ensino é tratado como mera transmissão.' },
+
+        { id:124, cat:'Cultura', front:'O que é patrimônio imaterial?', 
+        back:'Segundo a UNESCO, inclui saberes, tradições e práticas culturais que devem ser preservadas.', 
+        when:'Use quando tradições estão ameaçadas.' },
+
+        { id:125, cat:'Saúde', front:'Por que saúde preventiva deve ser priorizada?', 
+        back:'Segundo o SUS, prevenção reduz custos, evita doenças e melhora qualidade de vida.', 
+        when:'Use quando políticas tratam apenas do problema depois.' },
+
+        { id:126, cat:'Saúde', front:'For IG', 
+        back:'Nossos dias possuem 24 horas — 16 penso em você e nas outras 8, sonho contigo!!', 
+        when:'Eu te amo!!' },
+
+        { id:127, cat:'Desigualdade', front:'O que é sofrimento estrutural?', 
+        back:'Segundo Jessé Souza, estruturas sociais produzem sofrimento cotidiano em populações vulneráveis.', 
+        when:'Use quando pobreza gera humilhação constante.' },
+
+        { id:128, cat:'Infância', front:'O que o ECA garante sobre proteção integral?', 
+        back:'Segundo o ECA, crianças são sujeitos de direitos e devem ser protegidas pelo Estado, família e sociedade.', 
+        when:'Use quando políticas públicas falham com crianças.' },
+
+        { id:129, cat:'Cidades', front:'O que é gentrificação?', 
+        back:'Segundo urbanistas, valorização imobiliária expulsa moradores pobres de áreas centrais.', 
+        when:'Use quando revitalizações afetam moradores antigos.' },
+
+        { id:130, cat:'Violência', front:'O que causa criminalidade juvenil?', 
+        back:'Segundo o UNICEF, pobreza, escola falha e ausência estatal aumentam vulnerabilidade juvenil.', 
+        when:'Use quando adolescentes entram em conflito com a lei.' },
+
+        { id:131, cat:'Cultura', front:'O que é sexismo estrutural?', 
+        back:'Segundo ONU Mulheres, práticas sociais reforçam desigualdade de gênero historicamente.', 
+        when:'Use quando mulheres sofrem discriminação.' },
+
+        { id:132, cat:'Meio Ambiente', front:'Por que poluição do ar é grave?', 
+        back:'Segundo a OMS, poluição do ar mata milhões anualmente e atinge mais áreas pobres.', 
+        when:'Use quando cidades têm ar tóxico.' },
+
+        { id:133, cat:'Trabalho', front:'Quais riscos do trabalho remoto?', 
+        back:'Segundo Han, trabalho remoto pode intensificar autoexploração, sobrecarga e isolamento.', 
+        when:'Use quando home office gera exaustão.' },
+
+        { id:134, cat:'Tecnologia', front:'Como algoritmos afetam democracia?', 
+        back:'Segundo o documentário “O Dilema das Redes”, algoritmos manipulam fluxo de informação e influenciam eleições.', 
+        when:'Use quando fake news ameaçam processos democráticos.' },
+
+        { id:135, cat:'Cultura', front:'Por que intolerância religiosa é grave?', 
+        back:'Segundo a Constituição, liberdade de crença é direito inviolável e deve ser protegido pelo Estado.', 
+        when:'Use quando templos e crenças são atacados.' },
+
+        { id:136, cat:'Meio Ambiente', front:'Por que a Amazônia é decisiva para o clima?', 
+        back:'Segundo o IPCC, a Amazônia regula chuvas e temperatura, estando próxima do ponto de não retorno.', 
+        when:'Use quando desmatamento aumenta.' },
+
+        { id:137, cat:'Educação', front:'Qual a função social da escola?', 
+        back:'Segundo Paulo Freire, escola deve formar cidadãos críticos e promover emancipação.', 
+        when:'Use quando escola falha em formar criticidade.' },
+
+        { id:138, cat:'Infância', front:'Por que educação sexual é necessária?', 
+        back:'Segundo a OMS, educação sexual científica previne abusos e gravidez precoce.', 
+        when:'Use quando jovens sofrem por falta de informação.' },
+
+        { id:139, cat:'Saúde', front:'O que a pandemia revelou sobre desigualdade?', 
+        back:'Segundo a ONU, regiões pobres tiveram mais mortes por falta de estrutura e acesso à saúde.', 
+        when:'Use quando desigualdade aprofunda crises sanitárias.' },
+
+        { id:140, cat:'Trabalho', front:'Por que renda básica é debatida?', 
+        back:'Segundo Amartya Sen e a ONU, renda básica garante dignidade mínima e reduz desigualdade.', 
+        when:'Use quando pobreza extrema afeta famílias.' },
+
+        { id:141, cat:'Desigualdade', front:'O que Quijano afirma sobre colonialidade?', 
+        back:'Segundo Quijano, padrões coloniais ainda estruturam poder, cultura e desigualdade.', 
+        when:'Use quando racismo histórico aparece.' },
+
+        { id:142, cat:'Violência', front:'Por que militarização da segurança é criticada?', 
+        back:'Segundo especialistas, militarização aumenta letalidade sem resolver causas da violência.', 
+        when:'Use quando políticas focam apenas em repressão.' },
+
+        { id:143, cat:'Educação', front:'O que é aprendizagem significativa?', 
+        back:'Segundo Ausubel, aprendizado ocorre quando novos conteúdos se conectam ao conhecimento prévio.', 
+        when:'Use quando ensino não cria sentido para o aluno.' },
+
+        { id:144, cat:'Cidades', front:'Por que transporte ativo é importante?', 
+        back:'Segundo urbanistas, caminhar e pedalar reduzem emissões e promovem saúde.', 
+        when:'Use quando mobilidade sustentável é discutida.' },
+
+        { id:145, cat:'Saúde', front:'Qual o princípio da saúde pública?', 
+        back:'Segundo o SUS, saúde pública prioriza prevenção coletiva e redução de desigualdades.', 
+        when:'Use quando políticas ignoram prevenção.' },
+
+        { id:146, cat:'Cultura', front:'Por que direitos LGBTQIA+ importam?', 
+        back:'Segundo a ONU, proteger minorias fortalece democracia e dignidade humana.', 
+        when:'Use quando há discriminação contra LGBTQIA+.' },
+
+        { id:147, cat:'Tecnologia', front:'Qual o dilema entre privacidade e segurança?', 
+        back:'Segundo Zuboff, vigilância digital pode corroer liberdades civis.', 
+        when:'Use quando reconhecimento facial é debatido.' },
+
+        { id:148, cat:'Meio Ambiente', front:'O que é economia circular?', 
+        back:'Segundo a ONU, economia circular reintegra materiais ao ciclo produtivo e reduz resíduos.', 
+        when:'Use quando descarte de lixo é excessivo.' },
+
+        { id:149, cat:'Trabalho', front:'O que é trabalho digno?', 
+        back:'Segundo a OIT, trabalho digno inclui direitos, segurança e remuneração justa.', 
+        when:'Use quando relações trabalhistas sofrem abuso.' },
+
+        { id:150, cat:'Cidades', front:'Para que servem cidades inteligentes?', 
+        back:'Segundo urbanistas, cidades inteligentes usam tecnologia para melhorar mobilidade, serviços públicos e sustentabilidade.', 
+        when:'Use quando tecnologia é usada sem inclusão digital.' },
+
+        { id:151, cat:'Tecnologia', front:'O que é infodemia?', 
+        back:'Segundo a OMS, infodemia é excesso de informações confusas que gera pânico e desinformação.', 
+        when:'Use quando fake news atrapalham políticas de saúde.' },
+
+        { id:152, cat:'Meio Ambiente', front:'Qual a importância do Código Florestal?', 
+        back:'Segundo especialistas, o Código Florestal regula preservação ambiental e uso sustentável da terra.', 
+        when:'Use quando leis ambientais não são cumpridas.' },
+
+        { id:153, cat:'Saúde', front:'O que a OMS alerta sobre sedentarismo juvenil?', 
+        back:'Segundo a OMS, jovens sedentários têm risco maior de doenças crônicas e transtornos mentais.', 
+        when:'Use quando estilo de vida escolar prejudica saúde.' },
     ];
 
     // Load cards from localStorage or sample
@@ -40,7 +641,7 @@
 
     function renderList(){ listEl.innerHTML=''; filtered.forEach((c,i)=>{const row=document.createElement('div');row.className='card-row'; const left=document.createElement('div'); left.innerHTML=`<div style="font-weight:600">${c.front}</div><div class="small">${c.cat}</div>`; const right=document.createElement('div'); right.innerHTML=`<div class="small">${statuses[c.id]==1?'<span style="color:#ffdd78">DOMINADO</span>':'<span style="color:#9e6730">—</span>'}</div>`; row.appendChild(left); row.appendChild(right); row.onclick=()=>{idx=i; showCard();}; listEl.appendChild(row)}) }
 
-    function showCard(){ if(filtered.length===0){ frontText.textContent='Nenhum card'; backText.textContent='Importe ou adicione cards.'; whenUse.textContent='—'; indexDisplay.textContent='0 / 0'; return;} const c=filtered[idx]; frontText.textContent=c.front; backText.textContent=c.back; whenUse.textContent='Quando usar: '+(c.when||'—'); indexDisplay.textContent=`${idx+1} / ${filtered.length}`; inner.classList.remove('flipped'); updateStatusBar(); }
+    function showCard(){ if(filtered.length===0){ frontText.textContent='Nenhum card'; backText.textContent='Importe ou adicione cards.'; whenUse.textContent='—'; indexDisplay.textContent='0 / 0'; return;} const c=filtered[idx]; frontText.textContent=c.front; backText.textContent=c.back; whenUse.textContent='★ '+(c.when||'—'); indexDisplay.textContent=`${idx+1} / ${filtered.length}`; inner.classList.remove('flipped'); updateStatusBar(); }
 
     function updateStatusBar(){ const total=cards.length; const known=Object.values(statuses).filter(v=>v==1).length; const review=Object.values(statuses).filter(v=>v==2).length; bar.style.width = (known/total*100 || 0) + '%'; statusText.textContent = `${known} dominados • ${review} para revisar • total ${total}`; }
 
@@ -83,153 +684,3 @@
 
     // Accessibility: keyboard
     document.addEventListener('keydown', e=>{ if(e.code==='Space') { e.preventDefault(); inner.classList.toggle('flipped'); } if(e.key==='ArrowRight') document.getElementById('nextBtn').click(); if(e.key==='ArrowLeft') document.getElementById('prevBtn').click(); })
-
-    // Performance: prefill with more cards on first run
-    if(cards.length<=10){ // try to inflate with more sample items programmatically
-      const extras = [
-        {id:11,cat:'Educação',front:'Anísio Teixeira — ideia central?',back:'Defendia escola pública, democrática e universal.',when:'Infraestrutura escolar precária, desigualdade educacional.'},
-        {id:12,cat:'Educação',front:'Hannah Arendt — educação?',back:'A escola introduz o jovem no “mundo comum”.',when:'Crisis pedagógica, falta de preparo docente.'},
-        {id:13,cat:'Educação',front:'Bourdieu — reprodução escolar?',back:'A escola reproduz desigualdades via capital cultural.',when:'Desigualdade entre escolas públicas e privadas.'},
-        {id:14,cat:'Educação',front:'Castells — exclusão digital educacional?',back:'Acesso desigual à rede reforça desigualdades sociais.',when:'Ensino remoto, falta de internet.'},
-        {id:15,cat:'Educação',front:'UNESCO — educação inclusiva?',back:'Defende inclusão, diversidade e acesso universal.',when:'Educação de minorias e pessoas com deficiência.'},
-        {id:16,cat:'Educação',front:'ECA — direito à educação?',back:'Garante escola obrigatória e proteção integral.',when:'Evasão escolar, negligência educativa.'},
-        {id:17,cat:'Educação',front:'Freire — alfabetização como libertação?',back:'Alfabetizar é politizar; formar consciência crítica.',when:'Analfabetismo e baixa qualidade educacional.'},
-        {id:18,cat:'Educação',front:'Sen — capacidades e educação?',back:'Educação amplia capacidades e liberdade.',when:'Desigualdade escolar e pobreza.'},
-        {id:19,cat:'Educação',front:'ODS 4 — Educação de Qualidade?',back:'Meta global por educação inclusiva e equitativa.',when:'Falhas do sistema educacional.'},
-        {id:20,cat:'Educação',front:'Arendt — crise da autoridade docente?',back:'Falta de autoridade destrói o papel da escola.',when:'Desvalorização dos professores.'},
-        {id:21,cat:'Desigualdade',front:'David Harvey — urbanização desigual?',back:'Cidades refletem e ampliam desigualdades.',when:'Favelização, segregação urbana.'},
-        {id:22,cat:'Desigualdade',front:'Mapa da Violência — uso?',back:'Mostra vulnerabilidade de jovens e negros.',when:'Violência urbana e desigualdade racial.'},
-        {id:23,cat:'Desigualdade',front:'ONU — combate à pobreza?',back:'Direitos humanos como fundamento contra desigualdade.',when:'Pobreza, exclusão e grupos vulneráveis.'},
-        {id:24,cat:'Desigualdade',front:'Fanon — desigualdade racial?',back:'Racismo estrutural nasce do colonialismo.',when:'Racismo, violência policial, oportunidades.'},
-        {id:25,cat:'Desigualdade',front:'IBGE — desigualdade regional?',back:'Dados sobre disparidades de renda e território.',when:'Nordeste x Sudeste, interior x capital.'},
-        {id:26,cat:'Desigualdade',front:'Ipea — mobilidade social?',back:'Baixa mobilidade reforça desigualdade estrutural.',when:'Políticas públicas e pobreza.'},
-        {id:27,cat:'Desigualdade',front:'ODS 1 — Erradicação da pobreza?',back:'Agenda para eliminar pobreza extrema.',when:'Políticas sociais insuficientes.'},
-        {id:28,cat:'Desigualdade',front:'Sen — pobreza como ausência de liberdade?',back:'Pobreza restringe capacidade de escolhas.',when:'Vulnerabilidade social e política pública.'},
-        {id:29,cat:'Desigualdade',front:'ONU-Habitat — moradia?',back:'Habitação adequada é direito básico.',when:'Déficit habitacional, ocupações.'},
-        {id:30,cat:'Desigualdade',front:'Bourdieu — habitus?',back:'Estilos de vida moldados pela origem social.',when:'Desigualdade de oportunidades.'},
-        {id:31,cat:'Tecnologia',front:'Byung-Chul Han — sociedade do cansaço?',back:'Excesso de performance gera adoecimento psíquico.',when:'Tecnologia, burnout, juventude.'},
-        {id:32,cat:'Tecnologia',front:'Algoritmos — qual problema central?',back:'Criam bolhas e manipulam comportamento.',when:'Fake news e polarização.'},
-        {id:33,cat:'Tecnologia',front:'Capitalismo de vigilância — conceito?',back:'Transforma dados pessoais em lucro.',when:'Privacidade digital.'},
-        {id:34,cat:'Tecnologia',front:'O Dilema das Redes — mensagem principal?',back:'Plataformas exploram atenção e emoção.',when:'Desinformação, vício digital.'},
-        {id:35,cat:'Tecnologia',front:'Castells — sociedade em rede?',back:'A lógica digital altera relações sociais.',when:'Trabalho remoto, exclusão digital.'},
-        {id:36,cat:'Tecnologia',front:'Ciberviolência?',back:'Ataques virtuais impactam saúde mental.',when:'Cyberbullying e discurso de ódio.'},
-        {id:37,cat:'Tecnologia',front:'OMS — vício em tela?',back:'Uso abusivo provoca danos cognitivos.',when:'Dependência digital.'},
-        {id:38,cat:'Tecnologia',front:'Zuboff — coleta de dados infantil?',back:'Plataformas exploram vulnerabilidade de menores.',when:'Proteção infantil digital.'},
-        {id:39,cat:'Tecnologia',front:'IA e desemprego?',back:'Automação substitui tarefas humanas.',when:'Mercado de trabalho.'},
-        {id:40,cat:'Tecnologia',front:'Deepfakes — problema ético?',back:'Manipulação audiovisual abala confiança.',when:'Desinformação política.'},
-        {id:41,cat:'Violência',front:'Zaffaroni — sistema penal seletivo?',back:'Pune majoritariamente pobres e negros.',when:'Desigualdade penal.'},
-        {id:42,cat:'Violência',front:'Foucault — vigilância?',back:'Sociedade disciplinar controla corpos.',when:'Sistema prisional.'},
-        {id:43,cat:'Violência',front:'ONU — violência contra mulheres?',back:'A ONU denuncia violações estruturais.',when:'Feminicídio.'},
-        {id:44,cat:'Violência',front:'Lei Maria da Penha — importância?',back:'Protege mulheres em situação de violência doméstica.',when:'Violência de gênero.'},
-        {id:45,cat:'Violência',front:'Mapa da Violência — jovens negros?',back:'Mostra maior vitimização deste grupo.',when:'Racismo estrutural.'},
-        {id:46,cat:'Violência',front:'UNICEF — violência infantil?',back:'Crianças são altamente vulneráveis.',when:'Abandono, abuso e negligência.'},
-        {id:47,cat:'Violência',front:'Sistema prisional — problema central?',back:'Superlotação e violação de direitos.',when:'Reinserção social.'},
-        {id:48,cat:'Violência',front:'Racismo penal?',back:'Criminalização seletiva de grupos.',when:'Jovens periféricos.'},
-        {id:49,cat:'Violência',front:'Violência urbana — causas estruturais?',back:'Desigualdade e ausência estatal.',when:'Guetos urbanos, tráfico.'},
-        {id:50,cat:'Violência',front:'ECA — proteção ao adolescente?',back:'Medidas socioeducativas priorizam educação.',when:'Erro comum: punição punitivista.'},
-        {id:51,cat:'Saúde',front:'OMS — saúde mental?',back:'Parte essencial do bem-estar.',when:'Depressão e ansiedade juvenil.'},
-        {id:52,cat:'Saúde',front:'SUS — universalidade?',back:'Acesso garantido a todos.',when:'Políticas de saúde insuficientes.'},
-        {id:53,cat:'Saúde',front:'UNICEF — desnutrição infantil?',back:'Dados mostram vulnerabilidade de crianças.',when:'Pobreza e Fome Zero.'},
-        {id:54,cat:'Saúde',front:'OMS — alimentação inadequada?',back:'Causa doenças crônicas e obesidade.',when:'Saúde pública.'},
-        {id:55,cat:'Saúde',front:'Agenda 2030 — saúde?',back:'ODS 3 busca saúde universal.',when:'Falta de investimento.'},
-        {id:56,cat:'Saúde',front:'Hanseníase — negligência?',back:'Doença negligenciada afeta territórios pobres.',when:'Desigualdade em saúde.'},
-        {id:57,cat:'Saúde',front:'Saúde mental digital?',back:'Tecnologia pode causar ansiedade.',when:'Juventude hiperconectada.'},
-        {id:58,cat:'Saúde',front:'Saneamento básico — importância?',back:'Evita doenças e melhora qualidade de vida.',when:'Crise hídrica e enchentes.'},
-        {id:59,cat:'Saúde',front:'ODS 6 — água limpa?',back:'Alvo global para saneamento.',when:'Doenças hídricas.'},
-        {id:60,cat:'Saúde',front:'Vacinação — papel do SUS?',back:'Principal política preventiva.',when:'Fake news sobre vacinas.'},
-        {id:61,cat:'Meio Ambiente',front:'Rachel Carson — alerta ambiental?',back:'Denunciou poluentes e pesticidas.',when:'Contaminação e agrotóxicos.'},
-        {id:62,cat:'Meio Ambiente',front:'IPCC — principal tese?',back:'O aquecimento global é inequívoco.',when:'Mudanças climáticas.'},
-        {id:63,cat:'Meio Ambiente',front:'ODS 13 — ação climática?',back:'Combate ao aquecimento global.',when:'Crise ambiental.'},
-        {id:64,cat:'Meio Ambiente',front:'PNRS — resíduos sólidos?',back:'Define gestão de lixo e reciclagem.',when:'Lixões e coleta falha.'},
-        {id:65,cat:'Meio Ambiente',front:'Tragédia dos Comuns — conceito?',back:'Recursos coletivos se esgotam sem gestão.',when:'Uso da água, florestas.'},
-        {id:66,cat:'Meio Ambiente',front:'ONU — biodiversidade?',back:'ODS 15 protege fauna e flora.',when:'Desmatamento.'},
-        {id:67,cat:'Meio Ambiente',front:'Enchentes urbanas — causa estrutural?',back:'Falta de drenagem e impermeabilização.',when:'Planejamento urbano.'},
-        {id:68,cat:'Meio Ambiente',front:'Desertificação?',back:'Técnicas inadequadas esgotam o solo.',when:'Amazônia e Nordeste.'},
-        {id:69,cat:'Meio Ambiente',front:'Ilhas de calor?',back:'Urbanização densa aumenta temperatura.',when:'Sombreamento e arborização.'},
-        {id:70,cat:'Meio Ambiente',front:'Contaminação hídrica?',back:'Falha no saneamento.',when:'Doenças e vulnerabilidade.'},
-        {id:71,cat:'Cultura',front:'Art. 5º — igualdade?',back:'Todos são iguais perante a lei.',when:'Discriminação e racismo.'},
-        {id:72,cat:'Cultura',front:'ONU — direitos humanos?',back:'Baseados em dignidade e proteção.',when:'Grupos vulneráveis.'},
-        {id:73,cat:'Cultura',front:'Bagno — preconceito linguístico?',back:'Variações linguísticas são legítimas.',when:'Linguagem e exclusão.'},
-        {id:74,cat:'Cultura',front:'Darcy Ribeiro — identidade brasileira?',back:'Formação cultural diversa e mestiça.',when:'Cultura nacional.'},
-        {id:75,cat:'Cultura',front:'UNESCO — patrimônio cultural?',back:'Protege expressões culturais.',when:'Cultura periférica.'},
-        {id:76,cat:'Cultura',front:'ONU Mulheres?',back:'Defende igualdade de gênero.',when:'Violência contra mulher.'},
-        {id:77,cat:'Cultura',front:'Fanon — alienação cultural?',back:'Colonialismo destrói identidade.',when:'Racismo e colonialidade.'},
-        {id:78,cat:'Cultura',front:'Liberdade de crença — Art.5º?',back:'Estado deve garantir pluralidade religiosa.',when:'Intolerância religiosa.'},
-        {id:79,cat:'Cultura',front:'Censura cultural — risco?',back:'Limita diversidade e produção artística.',when:'Debates sobre arte e política.'},
-        {id:80,cat:'Cultura',front:'Democracia cultural?',back:'Acesso igualitário à cultura.',when:'Desigualdade cultural.'},
-        {id:81,cat:'Infância',front:'UNICEF — proteção infantil?',back:'Defende direitos fundamentais das crianças.',when:'Violência infantil.'},
-        {id:82,cat:'Infância',front:'OIT — trabalho infantil?',back:'Condena exploração e defende educação.',when:'Pobreza infantil.'},
-        {id:83,cat:'Infância',front:'ECA — medidas socioeducativas?',back:'Educar e reinserir, não punir.',when:'Adolescentes infratores.'},
-        {id:84,cat:'Infância',front:'Vulnerabilidade juvenil?',back:'Desigualdade afeta formação.',when:'Pobreza e evasão.'},
-        {id:85,cat:'Infância',front:'Dependência digital juvenil?',back:'Afeta atenção e saúde mental.',when:'Tecnologia e ansiedade.'},
-        {id:86,cat:'Infância',front:'Gravidez precoce?',back:'Relacionada a falta de educação sexual.',when:'Política pública.'},
-        {id:87,cat:'Infância',front:'Fome infantil?',back:'Falha estatal viola direitos.',when:'Pobreza extrema.'},
-        {id:88,cat:'Infância',front:'Bullying escolar?',back:'Violência psicológica entre pares.',when:'Saúde mental juvenil.'},
-        {id:89,cat:'Infância',front:'Abandono escolar?',back:'Causado por desigualdade e violência.',when:'Evasão escolar.'},
-        {id:90,cat:'Infância',front:'Desnutrição e pobreza?',back:'Atinge crianças vulneráveis.',when:'Fome e desigualdade.'},
-        {id:91,cat:'Trabalho',front:'Dejours — sofrimento laboral?',back:'Pressão e precarização adoecem trabalhadores.',when:'Uberização e assédio moral.'},
-        {id:92,cat:'Trabalho',front:'Castells — economia em rede?',back:'Digitalização muda relações de trabalho.',when:'Automação e precarização.'},
-        {id:93,cat:'Trabalho',front:'Ipea — informalidade?',back:'Crescimento da informalidade revela desigualdade.',when:'Trabalho precário.'},
-        {id:94,cat:'Trabalho',front:'OIT — trabalho escravo contemporâneo?',back:'Condena exploração e cárcere privado.',when:'Indústria têxtil, trabalho forçado.'},
-        {id:95,cat:'Trabalho',front:'Sen — desemprego juvenil?',back:'Falta de oportunidade reduz capacidades.',when:'Juventude pobre.'},
-        {id:96,cat:'Trabalho',front:'Competências digitais — impacto social?',back:'A falta de habilidades digitais aprofunda desigualdades no mercado. Segundo a OCDE, profissões digitais crescem 4x mais rápido que as tradicionais. Quem não domina tecnologia fica preso a empregos de baixa remuneração.',when:'Exclusão digital, empregabilidade, juventude periférica.'},
-        {id:97,cat:'Trabalho',front:'Terceirização abusiva — por que é problemática?',back:'Reduz direitos e fragiliza vínculos. Ricardo Antunes afirma que a terceirização intensifica a exploração e cria trabalhadores “descartáveis”.',when:'Precarização, uberização, direitos trabalhistas.'},
-        {id:98,cat:'Trabalho',front:'Desigualdade salarial — raiz estrutural?',back:'Mulheres e negros recebem menos por razões históricas. Segundo o IBGE (2023), mulheres ganham ~20% menos e negros até 40% menos. A OIT aponta discriminação sistêmica no mercado.',when:'Racismo estrutural, desigualdade de gênero.'},
-        {id:99,cat:'Trabalho',front:'Automação — risco ou oportunidade?',back:'A automação substitui tarefas repetitivas. Frey & Osborne (Oxford, 2013) previram que 47% dos empregos podem ser automatizados. Afeta mais empregos de baixa qualificação.',when:'Impacto da IA, desemprego tecnológico.'},
-        {id:100,cat:'Trabalho',front:'Capitalismo digital — crítica central?',back:'Plataformas lucram com dados e trabalho precarizado. Zuboff denuncia a lógica do “capitalismo de vigilância”, onde usuários e trabalhadores viram matéria-prima.',when:'Economia digital, exploração por algoritmos.'},
-        {id:101,cat:'Cidades',front:'Harvey — segregação urbana?',back:'David Harvey argumenta que o espaço urbano reflete o conflito de classes. A cidade é produzida para favorecer elites, empurrando pobres para periferias.',when:'Favelização, desigualdade urbana.'},
-        {id:102,cat:'Cidades',front:'Mobilidade urbana — ODS 11?',back:'Promove transporte acessível, seguro e inclusivo. Cidades desiguais têm transporte caro e ineficiente, o que limita acesso ao trabalho.',when:'Transporte público falho, desigualdade.'},
-        {id:103,cat:'Cidades',front:'Déficit habitacional — fator estrutural?',back:'Segundo a Fundação João Pinheiro, milhões vivem em moradias precárias. Falhas em políticas de habitação e especulação imobiliária ampliam o problema.',when:'Moradia digna, crise urbana.'},
-        {id:104,cat:'Cidades',front:'Urbanização desordenada — consequência?',back:'Crescimento sem planejamento gera enchentes, deslizamentos e segregação. Milton Santos aponta que planejamento desigual produz cidades excludentes.',when:'Alagamentos, risco ambiental.'},
-        {id:105,cat:'Cidades',front:'Violência urbana — causa raiz?',back:'A desigualdade é o principal motor. O Mapa da Violência mostra que regiões mais vulneráveis concentram homicídios.',when:'Segurança pública, racismo estrutural.'},
-        {id:106,cat:'Cidades',front:'Ilhas de calor — impacto social?',back:'A ausência de áreas verdes aumenta a temperatura até 10°C. Atinge mais bairros pobres, onde há menos arborização.',when:'Mudança climática urbana.'},
-        {id:107,cat:'Cidades',front:'Lixo urbano — problema estrutural?',back:'A PNRS exige coleta e reciclagem, mas cidades falham em cumprir. A má gestão agrava enchentes e doenças.',when:'Saneamento e meio ambiente.'},
-        {id:108,cat:'Cidades',front:'Acesso cultural desigual?',back:'Segundo a UNESCO, cultura é um direito. Periferias recebem menos equipamentos culturais, reproduzindo exclusão.',when:'Direito à cultura.'},
-        {id:109,cat:'Cidades',front:'Enchentes frequentes — causa?',back:'Impermeabilização do solo + ausência de drenagem. O problema não é natural, é político.',when:'Infraestrutura urbana deficiente.'},
-        {id:110,cat:'Cidades',front:'Urbanismo social — conceito?',back:'Defende cidades justas e inclusivas. Jane Jacobs criticava projetos que ignoram a vida comunitária.',when:'Revitalização, participação social.'},
-        {id:111,cat:'Educação',front:'Meritocracia — crítica?',back:'Ignora desigualdades estruturais. Bourdieu mostra que capital cultural determina desempenho escolar.',when:'Desigualdade educacional.'},
-        {id:112,cat:'Tecnologia',front:'Cultura do cancelamento — risco?',back:'Bauman alerta para sociedades líquidas, onde laços frágeis facilitam julgamentos instantâneos. O cancelamento elimina diálogo.',when:'Debates em redes sociais.'},
-        {id:113,cat:'Saúde',front:'Saúde e liberdades — Sen?',back:'Para Amartya Sen, saúde amplia capacidades humanas. Sem saúde, não há liberdade real.',when:'Desigualdade em saúde pública.'},
-        {id:114,cat:'Cultura',front:'Identidade nacional — visão crítica?',back:'Darcy Ribeiro define o Brasil como civilização mestiça e plural. Ignorar essa diversidade reduz nossa identidade.',when:'Cultura, pluralidade.'},
-        {id:115,cat:'Infância',front:'Educação infantil — importância?',back:'Fundamental para o desenvolvimento. A UNICEF afirma que investimentos iniciais geram maior retorno social.',when:'Políticas educacionais.'},
-        {id:116,cat:'Desigualdade',front:'Racismo institucional — dinâmica?',back:'Instituições produzem desigualdades. Silvio Almeida explica que o racismo se manifesta em práticas e estruturas, não apenas em indivíduos.',when:'Segurança, saúde, escola.'},
-        {id:117,cat:'Violência',front:'Cultura da violência — conceito?',back:'Naturalização da violência na rotina. O Brasil é um dos países com maiores índices de feminicídio.',when:'Violência de gênero e urbana.'},
-        {id:118,cat:'Meio Ambiente',front:'Consumo sustentável — importância?',back:'Reduz impacto ambiental. A ONU incentiva padrões sustentáveis para frear o aquecimento global.',when:'Mudanças climáticas.'},
-        {id:119,cat:'Trabalho',front:'Economia solidária — potencial?',back:'Modelo cooperativo que combate desigualdade. Paul Singer defendia que democratiza renda e autonomia.',when:'Crise econômica e trabalho.'},
-        {id:120,cat:'Trabalho',front:'Gig economy — crítica?',back:'Trabalhos por demanda criam instabilidade. Antunes aponta que a “uberização” precariza e individualiza riscos.',when:'Trabalho informal.'},
-        {id:121,cat:'Tecnologia',front:'LGPD — função social?',back:'Protege dados pessoais e limita abusos. Essencial frente ao capitalismo de vigilância.',when:'Privacidade digital.'},
-        {id:122,cat:'Tecnologia',front:'Ansiedade por desempenho?',back:'Byung-Chul Han afirma que vivemos a “sociedade do cansaço”: autocobrança constante gera adoecimento.',when:'Saúde mental e produtividade.'},
-        {id:123,cat:'Educação',front:'Mediação docente — papel?',back:'Professor orienta o processo de aprendizagem. Sem mediação, ensino vira mera transmissão.',when:'Ensino remoto e aprendizagem.'},
-        {id:124,cat:'Cultura',front:'Patrimônio imaterial — valor?',back:'Inclui saberes e tradições. A UNESCO protege expressões culturais ameaçadas.',when:'Identidade cultural.'},
-        {id:125,cat:'Saúde',front:'Saúde preventiva — por que priorizar?',back:'Evita doenças de alto custo. O SUS valoriza prevenção como estratégia essencial.',when:'Obesidade, sedentarismo.'},
-        {id:126,cat:'Saúde',front:'Sedentarismo juvenil — alerta?',back:'A OMS aponta crescimento de doenças crônicas em jovens devido à inatividade.',when:'Estilo de vida escolar.'},
-        {id:127,cat:'Desigualdade',front:'Sofrimento estrutural — Hansen?',back:'Estruturas sociais produzem sofrimento cotidiano: pobreza, exclusão e trabalho precário.',when:'Desigualdade extrema.'},
-        {id:128,cat:'Infância',front:'Proteção integral — base legal?',back:'ECA estabelece a criança como sujeito pleno de direitos. Estado, família e sociedade são responsáveis.',when:'Políticas para infância.'},
-        {id:129,cat:'Cidades',front:'Gentrificação — efeito?',back:'Valorização expulsa moradores pobres. Produz centros elitizados e periferias distantes.',when:'Revitalização urbana.'},
-        {id:130,cat:'Violência',front:'Criminalidade juvenil — causas?',back:'Resultados de falhas educacionais, pobreza e ausência estatal. UNICEF aponta vulnerabilidade crescente.',when:'Adolescentes infratores.'},
-        {id:131,cat:'Cultura',front:'Sexismo estrutural — como funciona?',back:'Práticas sociais reproduzem desigualdade de gênero. A ONU Mulheres destaca raízes históricas.',when:'Desigualdade de gênero.'},
-        {id:132,cat:'Meio Ambiente',front:'Poluição do ar — impacto?',back:'OMS alerta para milhões de mortes anuais. Atinge mais pobres em áreas urbanas.',when:'Grandes cidades e saúde.'},
-        {id:133,cat:'Trabalho',front:'Trabalho remoto — riscos ocultos?',back:'Aumenta jornadas e isolamento. Byung-Chul Han vê intensificação da autoexploração.',when:'Pandemia e pós-pandemia.'},
-        {id:134,cat:'Tecnologia',front:'Algoritmos e democracia — risco?',back:'Manipulam fluxo de informação. O documentário “O Dilema das Redes” mostra interferência em eleições.',when:'Fake news e política.'},
-        {id:135,cat:'Cultura',front:'Intolerância religiosa — violação?',back:'Fere direitos humanos e liberdade de culto. A Constituição (Art. 5º) garante proteção total.',when:'Ataques a templos e crenças.'},
-        {id:136,cat:'Meio Ambiente',front:'Desmatamento amazônico — impacto global?',back:'A Amazônia regula o clima. O IPCC alerta que o bioma está perto do ponto de não retorno.',when:'Política ambiental.'},
-        {id:137,cat:'Educação',front:'Função social da escola?',back:'Formar cidadãos críticos. Paulo Freire defendia escola libertadora, não apenas instrutiva.',when:'Debates educacionais.'},
-        {id:138,cat:'Infância',front:'Educação sexual — importância?',back:'Previne abusos e gravidez precoce. A OMS recomenda abordagem científica e protetiva.',when:'Vulnerabilidade juvenil.'},
-        {id:139,cat:'Saúde',front:'Pandemia — lição social?',back:'Escancarou desigualdades. Regiões pobres tiveram mais mortes por falta de estrutura.',when:'Saúde pública, SUS.'},
-        {id:140,cat:'Trabalho',front:'Renda básica — debate contemporâneo?',back:'Garante dignidade mínima. Amartya Sen e a ONU defendem como política de redução de desigualdade.',when:'Pobreza extrema.'},
-        {id:141,cat:'Desigualdade',front:'Colonialidade — conceito?',back:'Quijano afirma que padrões coloniais persistem na cultura e no poder, produzindo desigualdade racial.',when:'Racismo e cultura.'},
-        {id:142,cat:'Violência',front:'Militarização da segurança — crítica?',back:'Militarização aumenta letalidade e não resolve causas. Especialistas defendem prevenção e políticas sociais.',when:'Política de segurança pública.'},
-        {id:143,cat:'Educação',front:'Aprendizagem significativa — essência?',back:'Ausubel defendia conectar novos conteúdos ao conhecimento prévio. Gera aprendizado profundo.',when:'Didática escolar.'},
-        {id:144,cat:'Cidades',front:'Transporte ativo — importância?',back:'Caminhar e pedalar reduzem emissões e melhoram saúde. Prioriza cidades humanas.',when:'Mobilidade sustentável.'},
-        {id:145,cat:'Saúde',front:'Saúde pública — princípio central?',back:'Coletividade acima do individual. Políticas preventivas reduzem desigualdades.',when:'Programas do SUS.'},
-        {id:146,cat:'Cultura',front:'Direitos LGBTQIA+ — importância?',back:'ONU afirma que proteger minorias é essencial para democracia. Violência e discriminação violam direitos humanos.',when:'Direitos, cidadania.'},
-        {id:147,cat:'Tecnologia',front:'Privacidade x segurança — dilema?',back:'Reconhecimento facial amplia vigilância. Zuboff alerta para erosão das liberdades civis.',when:'Políticas públicas e tecnologia.'},
-        {id:148,cat:'Meio Ambiente',front:'Economia circular — objetivo?',back:'Reduz resíduos ao reinserir materiais no ciclo produtivo. Alternativa ao modelo linear.',when:'Sustentabilidade.'},
-        {id:149,cat:'Trabalho',front:'Trabalho digno — definição?',back:'OIT: envolve segurança, salário justo e direitos. Sem isso, há exploração.',when:'Relações trabalhistas.'},
-        {id:150,cat:'Cidades',front:'Cidades inteligentes — finalidade?',back:'Usam tecnologia para melhorar mobilidade, segurança e meio ambiente. Risco: excluir quem não tem acesso digital.',when:'Planejamento urbano e inclusão.'},
-        {id:151,cat:'Tecnologia',front:'Infodemia — conceito?',back:'Excesso de informações confusas gera pânico e desinformação. A OMS destacou o fenômeno na pandemia.',when:'Fake news, saúde pública.'}
-
-
-        
-      ];
-      extras.forEach(c=>{ if(!cards.find(x=>x.front===c.front)) cards.push(c); }); saveAll(); buildFilter(); renderList(); showCard(); updateStatusBar(); }
