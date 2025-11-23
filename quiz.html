@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#342210" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <title>Quiz ENEM</title>
+
+  <link rel="shortcut icon" href="/img/logo.png">
+
+
+
+<style>
+  :root{
+    --bg:linear-gradient(90deg,#342210 50%,#34200f 110%);--card:#281b0c;--muted:#f3dbc3;--accent:#804000;--accent-2:#9e6730; 
+    --correct:#063417; --wrong:#7b0000;
+
+    font-family: Inter, system-ui, Roboto, Arial;
+  }
+  body{
+    margin:0;min-height:100vh;background:var(--bg);
+    display:flex;justify-content:center;align-items:center;padding: 24px;
+    color:white;
+  }
+  .app{width:100%;max-width:980px}
+  .quiz{
+    background: var(--card);border-radius:12px;
+    padding:22px;border:1px solid rgba(255,255,255,0.05);
+  }
+  .statement{
+    font-size:18px;line-height:1.5;margin-bottom:18px;
+    background: rgba(255, 255, 255, 0.04);padding:18px;border-radius:10px;
+  }
+
+  .sub-title{margin:0;color:var(--muted);font-size:13px;;margin-bottom:18px}
+  .choices{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  @media (max-width:900px){.layout{grid-template-columns:1fr}.side{order:2}.card-area{order:1}}
+  .choice{
+    padding:14px;border-radius:12px;border:1px solid rgba(255,255,255,0.05);
+    background: #1a1107;cursor:pointer;font-weight:600;
+    text-align:left;
+  }
+  .choice.correct{background:linear-gradient(270deg,#063417,#005720);color:#dafff2}
+  .choice.wrong{background:linear-gradient(270deg, #3b0000,#720000);color:#ffdada}
+  .controls{display:flex;gap:10px;margin-top:24px;justify-content: center;}
+
+  .controls button{
+    background:linear-gradient(90deg,var(--accent),var(--accent-2));border:none;color:#efefef;font-weight:700;
+  }
+
+  button{
+    padding:10px 16px;border-radius:8px;background:var(--card);
+    color:white;border: 1px solid rgba(255,255,255,0.04);cursor:pointer;
+    font-size: 13px;
+  }
+
+    .logo {
+    margin-top: 17px;
+    margin-right: 5px;
+    }
+
+    header{display:flex;align-items:center}
+    header h1{font-size:28px;margin-bottom: 4px;}
+
+    body::-webkit-scrollbar {
+    width: 0.1px;
+    }
+
+
+    select:hover,
+    input:hover,
+    .card-row:hover,
+    button:hover{transform: translateY(-1.5px) scale(1.03);transition: all 0.4s ease;}
+
+    .sobre {
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin-top: 30px;
+    text-shadow: 0 0 10px rgb(251, 100, 6);
+    }
+
+    .sobre span {
+    margin-bottom: 7px;
+    }
+
+    .sobre a {
+    color: #fba045;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    }
+
+    .sobre a:hover {
+    color: rgb(251, 100, 6);
+    text-shadow: 0 0 10px rgb(251, 100, 6);
+    }
+
+    .ir_flashcard {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    }
+    .ir_flashcard button {
+    padding: 10px 25px;
+    font-size: large;
+    font-weight: bold;
+    background:linear-gradient(90deg, #34200f, #543010);
+    border:2px solid var(--card);
+    border-radius:20px;
+    color: #fff;
+    box-shadow: 0 0 10px rgb(34, 15, 3);;
+    }
+
+    .status {
+        margin-top: 20px;
+        display: flex;
+        justify-content: center;
+    }
+
+    .navigator {
+        margin-bottom: 15px;
+    }
+</style>
+
+
+
+
+</head>
+<body>
+
+<div class="app" role="application">
+      <header>
+          <img class="logo" src="img/logo.png" alt="logo" height="50px" width="50px">
+            <div>
+              <h1>
+                QUIZ DE REPERTÓRIOS — ENEM
+              </h1>
+          </div>
+      </header>
+        <p class="sub-title">Banco de repertórios de prática para ENEM. Teste seus conhecimeto e ganhe experiência.</p>
+
+        <div class="navigator">
+            <button id="shuffleBtn">Embaralhar ⇆</button>
+            <button id="resetBtn">Reiniciar ↺</button>            
+        </div>
+
+
+  <div class="quiz" id="quiz">
+
+    <div class="statement" id="statement">
+      Carregando questão...
+    </div>
+
+    <div class="choices" id="choices"></div>
+
+    <div class="controls">
+        <button id="prevBtn">◀ VOLTAR</button>
+        <button id="nextBtn"> PULAR ▶</button>
+    </div>
+    <div class="status">
+      <p id="status" style="margin-top:10px;color: var(--muted);font-size:14px">
+        Progresso: —
+      </p>
+    </div>
+
+
+  </div>
+
+  <div class="ir_flashcard">
+    <button title="Modo Fir_flashcard" onclick="window.location.href='index.html'";>FLASHCARDS</button>
+  </div>
+
+<div class="sobre">
+    <div class="sobre-container">
+        <span>2025 Flashcards ENEM — Pablo Renan</span>
+        <br>
+        <a href="https://github.com/Renan9-12/repertorio-app">Repositório GitHub</a>
+        <span> • </span>
+        <a href="mailto:pablorenan1946@gmail.com">pablorenan1946@gmail.com</a>
+    </div>
+</div>
+
+</div>
+<script src="quiz_dados.js"></script>
+</body>
+</html>
+

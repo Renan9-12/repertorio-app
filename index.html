@@ -83,7 +83,27 @@
     }
     /* responsive */
     @media (max-width:900px){.layout{grid-template-columns:1fr}.side{order:2}.card-area{order:1}}
+
+    .ir_quiz {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    }
+    .ir_quiz button {
+    padding: 10px 25px;
+    font-size: large;
+    font-weight: bold;
+    background:linear-gradient(90deg, #34200f, #543010);
+    border:2px solid var(--card);
+    border-radius:20px;
+    color: #fff;
+    box-shadow: 0 0 10px rgb(34, 15, 3);;
+    }
+
   </style>
+
+
+
 </head>
 <body>
   <div class="app" role="application">
@@ -94,10 +114,11 @@
       </div>
     </header>
       <p class="sub-title">Banco de repertórios de prática para ENEM. Pratique flip, filtre por área, marque como dominado e baixe.</p>
+      
       <div class="controls">
         <select id="categoryFilter" aria-label="Filtrar por categoria"></select>
-        <button id="shuffleBtn" title="Embaralhar">Embaralhar</button>
-        <button id="resetProgress" title="Resetar progresso">Resetar</button>
+        <button id="shuffleBtn" title="Embaralhar">Embaralhar ⇆</button>
+        <button id="resetProgress" title="Resetar progresso">Resetar ↺</button>
         <button id="exportCsv" class="ghost" title="Arquivo .csv dos cards para usar em outros locais">Baixar CSV</button>
     </div>
     
@@ -150,12 +171,16 @@
         
     </aside>
 </div>
+  <div class="ir_quiz">
+    <button title="Modo quiz" onclick="window.location.href='quiz.html'";>QUIZ</button>
+  </div>
+
 <div class="sobre">
     <div class="sobre-container">
         <span>2025 Flashcards ENEM — Pablo Renan</span>
         <br>
         <a href="https://github.com/Renan9-12/repertorio-app">Repositório GitHub</a>
-        <span> | </span>
+        <span> • </span>
         <a href="mailto:pablorenan1946@gmail.com">pablorenan1946@gmail.com</a>
     </div>
 </div>

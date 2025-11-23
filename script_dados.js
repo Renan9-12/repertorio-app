@@ -641,12 +641,13 @@
 
     function renderList(){ listEl.innerHTML=''; filtered.forEach((c,i)=>{const row=document.createElement('div');row.className='card-row'; const left=document.createElement('div'); left.innerHTML=`<div style="font-weight:600">${c.front}</div><div class="small">${c.cat}</div>`; const right=document.createElement('div'); right.innerHTML=`<div class="small">${statuses[c.id]==1?'<span style="color:#ffdd78">DOMINADO</span>':'<span style="color:#9e6730">—</span>'}</div>`; row.appendChild(left); row.appendChild(right); row.onclick=()=>{idx=i; showCard();}; listEl.appendChild(row)}) }
 
-    function showCard(){ if(filtered.length===0){ frontText.textContent='Nenhum card'; backText.textContent='Importe ou adicione cards.'; whenUse.textContent='—'; indexDisplay.textContent='0 / 0'; return;} const c=filtered[idx]; frontText.textContent=c.front; backText.textContent=c.back; whenUse.textContent='★ '+(c.when||'—'); indexDisplay.textContent=`${idx+1} / ${filtered.length}`; inner.classList.remove('flipped'); updateStatusBar(); }
+    function showCard(){ if(filtered.length===0){ frontText.textContent='Nenhum card'; backText.textContent='Importe ou adicione cards.'; whenUse.textContent='—'; indexDisplay.textContent='0 / 0'; return;} const c=filtered[idx]; frontText.textContent=c.front; backText.textContent=c.back; whenUse.textContent='ⓘ '+(c.when||'—'); indexDisplay.textContent=`${idx+1} / ${filtered.length}`; inner.classList.remove('flipped'); updateStatusBar(); }
 
     function updateStatusBar(){ const total=cards.length; const known=Object.values(statuses).filter(v=>v==1).length; const review=Object.values(statuses).filter(v=>v==2).length; bar.style.width = (known/total*100 || 0) + '%'; statusText.textContent = `${known} dominados • ${review} para revisar • total ${total}`; }
 
     // Controls
     document.getElementById('flipBtn').onclick = ()=> inner.classList.toggle('flipped');
+    document.getElementById('inner').onclick = ()=> inner.classList.toggle('flipped');
     document.getElementById('nextBtn').onclick = ()=>{ if(filtered.length===0) return; idx = (idx+1)%filtered.length; showCard(); }
     document.getElementById('prevBtn').onclick = ()=>{ if(filtered.length===0) return; idx = (idx-1+filtered.length)%filtered.length; showCard(); }
     document.getElementById('shuffleBtn').onclick = ()=>{ shuffleArray(filtered); idx=0; renderList(); showCard(); }
